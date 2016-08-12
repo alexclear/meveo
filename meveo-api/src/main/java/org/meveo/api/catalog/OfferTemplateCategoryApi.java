@@ -38,7 +38,7 @@ public class OfferTemplateCategoryApi extends BaseApi {
      * @throws MeveoApiException
      * @throws BusinessException 
      */
-    public void create(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException {
+    public void create(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException, SerialException, SQLException {
 
         if (StringUtils.isBlank(postData.getCode())) {
             missingParameters.add("code");
@@ -63,18 +63,7 @@ public class OfferTemplateCategoryApi extends BaseApi {
 
             if (postData.getImageByteValue() != null) {
                 byte[] byteContent = postData.getImageByteValue().getBytes();
-                try {
-                    Blob blobImg = new SerialBlob(byteContent);
-                    offerTemplateCategory.setImage(blobImg);
-                } catch (SerialException e) {
-                    // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    throw new MeveoApiException("Invalid base64 encoded image string.");
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    throw new MeveoApiException("System error.");
-                }
+                offerTemplateCategory.setImage(byteContent);
             }
 
             String parentCode = postData.getOfferTemplateCategoryCode();
@@ -97,7 +86,7 @@ public class OfferTemplateCategoryApi extends BaseApi {
      * @throws MeveoApiException
      * @throws BusinessException 
      */
-    public void update(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException {
+    public void update(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException, SerialException, SQLException {
 
         if (StringUtils.isBlank(postData.getCode())) {
             missingParameters.add("code");
@@ -122,18 +111,7 @@ public class OfferTemplateCategoryApi extends BaseApi {
 
             if (postData.getImageByteValue() != null) {
                 byte[] byteContent = postData.getImageByteValue().getBytes();
-                try {
-                    Blob blobImg = new SerialBlob(byteContent);
-                    offerTemplateCategory.setImage(blobImg);
-                } catch (SerialException e) {
-                    // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    throw new MeveoApiException("Invalid base64 encoded image string.");
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    // e.printStackTrace();
-                    throw new MeveoApiException("System error.");
-                }
+                offerTemplateCategory.setImage(byteContent);
             }
 
             String parentCode = postData.getOfferTemplateCategoryCode();
@@ -232,8 +210,10 @@ public class OfferTemplateCategoryApi extends BaseApi {
      * @param currentUser
      * @throws MeveoApiException
      * @throws BusinessException 
+     * @throws SQLException 
+     * @throws SerialException 
      */
-    public void createOrUpdate(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException {
+    public void createOrUpdate(OfferTemplateCategoryDto postData, User currentUser) throws MeveoApiException, BusinessException, SerialException, SQLException {
 
         String code = postData.getCode();
 

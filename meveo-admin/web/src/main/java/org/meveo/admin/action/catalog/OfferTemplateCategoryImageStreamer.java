@@ -26,7 +26,7 @@ public class OfferTemplateCategoryImageStreamer extends ImageStreamer<OfferTempl
 
 	@Override
 	public byte[] getImageArr(OfferTemplateCategory obj) {
-		return obj.getImageAsByteArr();
+		return obj.getImage();
 	}
 
 }

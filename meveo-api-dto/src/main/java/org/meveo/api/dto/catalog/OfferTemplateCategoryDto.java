@@ -56,7 +56,7 @@ public class OfferTemplateCategoryDto implements Serializable {
 			this.setActive(offerTemplateCategory.isActive());
 			
 			if (offerTemplateCategory.getImage() != null) {
-				this.setImageByteValue(new String(offerTemplateCategory.getImageAsByteArr()));
+				this.setImageByteValue(new String(offerTemplateCategory.getImage()));
 			}
 			
 			OfferTemplateCategory parent = offerTemplateCategory.getOfferTemplateCategory();

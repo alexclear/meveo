@@ -71,16 +71,12 @@ public class OfferTemplateCategoryBean extends CustomFieldBean<OfferTemplateCate
 		return super.saveOrUpdate(killConversation);
 	}
 
-	public void handleFileUpload(FileUploadEvent event) throws BusinessException {
+	public void handleFileUpload(FileUploadEvent event) throws BusinessException, SQLException {
 		uploadedFile = event.getFile();
 
 		if (uploadedFile != null) {
 			byte[] contents = uploadedFile.getContents();
-			try {
-				entity.setImage(new SerialBlob(contents));
-			} catch (SQLException e) {
-				entity.setImage(null);
-			}
+			entity.setImage(contents);
 			entity.setImageContentType(uploadedFile.getContentType());
 
 			saveOrUpdate(entity);
@@ -97,11 +93,7 @@ public class OfferTemplateCategoryBean extends CustomFieldBean<OfferTemplateCate
 
 		if (uploadedFile != null) {
 			byte[] contents = uploadedFile.getContents();
-			try {
-				entity.setImage(new SerialBlob(contents));
-			} catch (SQLException e) {
-				log.error(e.getMessage());
-			}
+			entity.setImage(contents);
 			entity.setImageContentType(uploadedFile.getContentType());
 
 			FacesMessage message = new FacesMessage("Succesful", uploadedFile.getFileName() + " is uploaded.");

@@ -45,9 +45,8 @@ public class OfferTemplateCategory extends BusinessCFEntity {
 	private String name;
 
 	@Column(name = "IMAGE")
-	@Lob
 	@Basic(fetch = FetchType.LAZY)
-	private Blob image;
+	private byte[] image;
 
 	@Column(name = "IMAGE_CONTENT_TYPE", length = 50)
 	@Size(max = 50)
@@ -76,11 +75,12 @@ public class OfferTemplateCategory extends BusinessCFEntity {
 		this.name = name;
 	}
 
-	public Blob getImage() {
+
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(Blob image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
@@ -98,22 +98,6 @@ public class OfferTemplateCategory extends BusinessCFEntity {
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public byte[] getImageAsByteArr() {
-		if (image != null) {
-			int blobLength;
-			try {
-				blobLength = (int) image.length();
-				byte[] blobAsBytes = image.getBytes(1, blobLength);
-
-				return blobAsBytes;
-			} catch (SQLException e) {
-				return null;
-			}
-		}
-
-		return null;
 	}
 
 	public String getImageContentType() {

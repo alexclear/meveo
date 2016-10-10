@@ -1,5 +1,6 @@
 package org.meveo.admin.web.servlet;
 
+import java.net.URLDecoder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +47,7 @@ public class PictureServlet extends HttpServlet {
 
 	private static final String DEFAULT_OFFER_IMAGE = "offer_default.png";
 	private static final String DEFAULT_SERVICE_IMAGE = "service_default.png";
+	private static final String UTF8_ENCODING = "UTF-8";
 	private Map<String, byte[]> cachedDefaultImages = new HashMap<>();
 
 	@Inject
@@ -87,6 +89,9 @@ public class PictureServlet extends HttpServlet {
 			} else {
 				log.error("error context path " + url);
 				return;
+			}
+			if(filename != null) {
+				filename = URLDecoder.decode(filename, UTF8_ENCODING);
 			}
 		} catch (Exception e) {
 			log.error("error when read picture path. Reason " + (e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage()));
